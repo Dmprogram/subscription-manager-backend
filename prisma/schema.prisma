@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  email    String @unique
+  password String
+
+  phone String @default("")
+
+  name          String
+  avatarPath    String @default("/uploads/default-avatar.png") @map("avatar_path")
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id               Int      @id @default(autoincrement())
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @default(now()) @map("updated_at")
+  name             String
+  image            String
+  currency         String
+  paymentFrequency String @map("payment_frequency")
+  price            Int
+  status           Boolean @default(true)
+  year             Int
+  month            Int
+  day              Int
+  user             User @relation(fields: [userId], references: [id])
+  userId           Int @map("user_id")
+}
