@@ -14,22 +14,6 @@ export class UserService {
       },
       select: {
         ...userObject,
-        subscriptions: {
-          select: {
-            id: true,
-            name: true,
-            currency: true,
-            createdAt: true,
-            image: true,
-            paymentFrequency: true,
-            price: true,
-            status: true,
-            year: true,
-            month: true,
-            day: true,
-            updatedAt: false,
-          },
-        },
       },
     })
     if (!user) {

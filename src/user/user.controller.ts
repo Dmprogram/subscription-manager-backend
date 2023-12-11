@@ -9,6 +9,7 @@ import { UserDto } from './user.dto'
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UsePipes(new ValidationPipe())
   @Get('profile')
   @Auth()
   async getProfile(@CurrentUser('id') id: number) {
