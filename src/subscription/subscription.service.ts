@@ -55,7 +55,7 @@ export class SubscriptionService {
   async getAllSubscriptions(userId: number) {
     return this.prisma.subscription.findMany({
       where: { user: { id: userId } },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'asc' },
       select: subcriptionObject,
     })
   }
