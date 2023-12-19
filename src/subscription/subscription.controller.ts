@@ -1,8 +1,22 @@
-import { Body, Controller, Get, HttpCode, Param, Post, UsePipes, Delete, ValidationPipe, Patch } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  UsePipes,
+  Delete,
+  ValidationPipe,
+  Patch,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common'
 import { SubscriptionService } from './subscription.service'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { SubscriptionDto } from './subscription.dto'
 import { CurrentUser } from 'src/auth/decorators/user.decorator'
+import { FileInterceptor } from '@nestjs/platform-express'
 
 @Controller('subscriptions')
 export class SubscriptionController {
@@ -22,6 +36,15 @@ export class SubscriptionController {
   @Get()
   async getAllSubscriptions(@CurrentUser('id') userId: number) {
     return this.subscriptionService.getAllSubscriptions(userId)
+  }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Auth()
+  @Post('/upload/images')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    return this.subscriptionService.uploadImage(file)
   }
 
   @UsePipes(new ValidationPipe())

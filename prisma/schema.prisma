@@ -28,7 +28,7 @@ model Subscription {
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @default(now()) @map("updated_at")
   name             String
-  image            String
+  image            String?
   currency         String
   paymentFrequency String @map("payment_frequency")
   price            Int

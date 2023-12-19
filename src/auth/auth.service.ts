@@ -68,13 +68,13 @@ export class AuthService {
   private async issueTokens(userId: number) {
     const data = { id: userId }
 
-    const acceessToken = this.jwt.sign(data, {
+    const accessToken = this.jwt.sign(data, {
       expiresIn: '2h',
     })
     const refreshToken = this.jwt.sign(data, {
       expiresIn: '2d',
     })
-    return { acceessToken, refreshToken }
+    return { accessToken, refreshToken }
   }
   private returnUserFields(user: User) {
     return {

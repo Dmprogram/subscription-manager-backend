@@ -1,7 +1,12 @@
 import { IsEmail, IsString, MinLength } from 'class-validator'
 
 export class AuthDto {
-  @IsEmail()
+  @IsEmail(
+    {},
+    {
+      message: 'Invalid email',
+    },
+  )
   email: string
 
   @MinLength(6, {

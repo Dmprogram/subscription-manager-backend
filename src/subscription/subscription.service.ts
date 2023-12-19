@@ -1,11 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { subcriptionObject } from './subscription.object'
 import { SubscriptionDto } from './subscription.dto'
+import { CloudinaryService } from 'src/cloudinary/clodinary.service'
 
 @Injectable()
 export class SubscriptionService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private cloudinary: CloudinaryService) {}
 
   async createSubscription(userId: number, dto: SubscriptionDto) {
     return this.prisma.subscription.create({
@@ -18,6 +19,12 @@ export class SubscriptionService {
     })
   }
 
+  async uploadImage(file: Express.Multer.File) {
+    const image = await this.cloudinary.uploadImage(file).catch(() => {
+      throw new BadRequestException('Invalid type')
+    })
+    return image
+  }
   async getSubscriptionById(userId: number, subscriptionId: number) {
     const subscription = await this.prisma.subscription.findUnique({
       where: {

@@ -1,10 +1,11 @@
-import { IsBoolean, IsNumber, IsString } from 'class-validator'
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator'
 
 export class SubscriptionDto {
   @IsString()
   name: string
   @IsString()
-  image: string
+  @IsOptional()
+  image?: string
   @IsString()
   currency: string
   @IsString()
