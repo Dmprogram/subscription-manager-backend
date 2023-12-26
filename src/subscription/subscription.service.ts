@@ -58,6 +58,17 @@ export class SubscriptionService {
       },
     })
   }
+  async changeSubscriptionStatus(userId: number, subscriptionId: number, dto: Pick<SubscriptionDto, 'status'>) {
+    return this.prisma.subscription.update({
+      where: {
+        id: subscriptionId,
+        user: { id: userId },
+      },
+      data: {
+        ...dto,
+      },
+    })
+  }
 
   async getAllSubscriptions(userId: number) {
     return this.prisma.subscription.findMany({

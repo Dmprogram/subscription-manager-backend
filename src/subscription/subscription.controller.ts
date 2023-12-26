@@ -73,4 +73,16 @@ export class SubscriptionController {
   async deleteSubscriptionById(@CurrentUser('id') userId: number, @Param('id') subscriptionId: string) {
     return this.subscriptionService.deleteSubscriptionById(userId, parseInt(subscriptionId, 10))
   }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Auth()
+  @Patch('/change-status/:id')
+  async changeSubscriptionStatus(
+    @CurrentUser('id') userId: number,
+    @Param('id') subscriptionId: string,
+    @Body() dto: Pick<SubscriptionDto, 'status'>,
+  ) {
+    return this.subscriptionService.changeSubscriptionStatus(userId, parseInt(subscriptionId, 10), dto)
+  }
 }
