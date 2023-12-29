@@ -13,9 +13,9 @@ import {
   UploadedFile,
 } from '@nestjs/common'
 import { SubscriptionService } from './subscription.service'
-import { Auth } from 'src/auth/decorators/auth.decorator'
+import { Auth } from '../auth/decorators/auth.decorator'
 import { SubscriptionDto } from './subscription.dto'
-import { CurrentUser } from 'src/auth/decorators/user.decorator'
+import { CurrentUser } from '../auth/decorators/user.decorator'
 import { FileInterceptor } from '@nestjs/platform-express'
 
 @Controller('subscriptions')

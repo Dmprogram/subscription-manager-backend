@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
-import { PrismaService } from 'src/prisma.service'
+import { PrismaService } from '../prisma.service'
 import { AuthDto } from './dto/auth.dto'
 import { hash, verify } from 'argon2'
 import { JwtService } from '@nestjs/jwt'
