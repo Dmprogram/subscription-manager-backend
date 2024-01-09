@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from 'src/prisma.service'
+import { PrismaService } from '../prisma.service'
 import { subcriptionObject } from './subscription.object'
 import { SubscriptionDto } from './subscription.dto'
-import { CloudinaryService } from 'src/cloudinary/clodinary.service'
+import { CloudinaryService } from '../cloudinary/clodinary.service'
 
 @Injectable()
 export class SubscriptionService {

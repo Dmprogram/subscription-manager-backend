@@ -2,8 +2,8 @@ import { Controller, Get, Put } from '@nestjs/common'
 import { UserService } from './user.service'
 import { HttpCode, Body, UsePipes, ValidationPipe } from '@nestjs/common'
 
-import { Auth } from 'src/auth/decorators/auth.decorator'
-import { CurrentUser } from 'src/auth/decorators/user.decorator'
+import { Auth } from '../auth/decorators/auth.decorator'
+import { CurrentUser } from '../auth/decorators/user.decorator'
 import { UserDto } from './user.dto'
 @Controller('users')
 export class UserController {

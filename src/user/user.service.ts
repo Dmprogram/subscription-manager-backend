@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
-import { PrismaService } from 'src/prisma.service'
+import { PrismaService } from '../prisma.service'
 import { userObject } from './user.object'
 import { UserDto } from './user.dto'
 import { hash } from 'argon2'
