@@ -21,7 +21,7 @@ model User {
 
   name          String
   avatarPath    String @default("/uploads/default-avatar.png") @map("avatar_path")
-
+  hoursOffset   Int
   subscriptions Subscription[]
 }
 

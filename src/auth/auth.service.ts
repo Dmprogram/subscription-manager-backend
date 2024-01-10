@@ -54,6 +54,7 @@ export class AuthService {
         avatarPath: faker.image.avatar(),
         phone: faker.phone.number('+7 (###) ###-##-##'),
         password: await hash(dto.password),
+        hoursOffset: dto.hoursOffset,
       },
     })
 
@@ -80,6 +81,7 @@ export class AuthService {
     return {
       id: user.id,
       email: user.email,
+      hoursOffset: user.hoursOffset,
     }
   }
   private async validateUser(dto: AuthDto) {
@@ -88,9 +90,21 @@ export class AuthService {
         email: dto.email,
       },
     })
+
     if (!user) throw new NotFoundException('User not found')
     const isValid = await verify(user.password, dto.password)
     if (!isValid) throw new UnauthorizedException('Invalid password')
-    return user
+
+    return this.updateHoursOffset(user, dto.hoursOffset)
+  }
+  private async updateHoursOffset(dto: User, hoursOffset: number) {
+    return this.prisma.user.update({
+      where: {
+        id: dto.id,
+      },
+      data: {
+        hoursOffset,
+      },
+    })
   }
 }
