@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { Cron } from '@nestjs/schedule'
 import { Subscription } from '@prisma/client'
 import { format, addMonths, addYears, addHours } from 'date-fns'
 import { PrismaService } from '../prisma.service'
@@ -15,8 +14,7 @@ export class CronJobsService {
     const utcHours = new Date().getHours()
     return new Date(utcYear, utcMonth, utcDay, utcHours)
   }
-  @Cron('0 0 * * * *', { name: 'period' })
-  private async updatePeriod() {
+  async updatePeriod() {
     const subscriptions = await this.prismaService.subscription.findMany({
       where: {
         status: true,
