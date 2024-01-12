@@ -21,26 +21,21 @@ export class CronJobsService {
       },
       select: {
         id: true,
-        name: true,
-        status: true,
         year: true,
         month: true,
         day: true,
         paymentFrequency: true,
-        user: true,
       },
     })
     for (let i = 0; i < subscriptions.length; i++) {
-      const { user, ...subscription } = subscriptions[i]
+      const { ...subscription } = subscriptions[i]
       const subscriptionDate = new Date(
         format(new Date(subscription.year, subscription.month - 1, subscription.day), 'yyyy-MM-dd'),
       )
       const utcNow = this.getCurrentDate()
 
-      const currentDateLocal = addHours(utcNow, -user.hoursOffset)
-      if (currentDateLocal.getTime() === addHours(subscriptionDate, 24).getTime()) {
+      if (utcNow.getTime() === addHours(subscriptionDate, 24).getTime()) {
         const newPeriod = this.getNewPeriod(subscription)
-        console.log(subscription)
         await this.prismaService.subscription.update({
           where: {
             id: subscription.id,
