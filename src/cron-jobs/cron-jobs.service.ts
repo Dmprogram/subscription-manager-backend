@@ -34,7 +34,7 @@ export class CronJobsService {
       )
       const utcNow = this.getCurrentDate()
 
-      if (utcNow.getTime() === addHours(subscriptionDate, 24).getTime()) {
+      if (utcNow.getTime() >= addHours(subscriptionDate, 24).getTime()) {
         const newPeriod = this.getNewPeriod(subscription)
         await this.prismaService.subscription.update({
           where: {
